@@ -59,6 +59,8 @@ port = null;
 //###########################################################
 app = express();
 
+app.set("trust proxy", 1);
+
 app.use(bodyParser.urlencoded({
   extended: false
 }));
@@ -99,6 +101,11 @@ listenForRequests = function() {
   } else {
     app.listen(port);
   }
+};
+
+//###########################################################
+export var setProxyTrust = function(arg) {
+  app.set("trust proxy", arg);
 };
 
 //###########################################################
