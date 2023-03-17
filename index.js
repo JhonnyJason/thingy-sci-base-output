@@ -61,11 +61,9 @@ app = express();
 
 app.set("trust proxy", 1);
 
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.disable("etag");
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 //endregion
 
@@ -90,7 +88,7 @@ attachSCIFunctions = function() {
   var fun, route;
   for (route in routes) {
     fun = routes[route];
-    app.post("/" + route, fun);
+    app.post(`/${route}`, fun);
   }
 };
 
@@ -104,8 +102,8 @@ listenForRequests = function() {
 };
 
 //###########################################################
-export var setProxyTrust = function(arg) {
-  app.set("trust proxy", arg);
+export var getExpressApp = function() {
+  return app;
 };
 
 //###########################################################
